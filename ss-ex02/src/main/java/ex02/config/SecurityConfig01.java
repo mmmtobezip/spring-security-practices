@@ -12,13 +12,12 @@ import org.springframework.util.AntPathMatcher;
 import ex02.filter.MySecurityFilter01;
 import ex02.filter.MySecurityFilter02;
 import ex02.filter.MySecurityFilter03;
-import ex02.filter.MySecurityFilter04;
 
 @Configuration
 public class SecurityConfig01 {
   @Bean
   public FilterChainProxy springSecurityFilterChain() {
-    List<SecurityFilterChain> list = Arrays.asList(new SecurityFilterChain() {
+    List<SecurityFilterChain> securityFilterChains = Arrays.asList(new SecurityFilterChain() {
       public boolean matches(HttpServletRequest request) {
         String uri = request.getRequestURI().replaceAll(request.getContextPath(), "");
         return new AntPathMatcher().match("/assets/**", uri);
@@ -36,12 +35,11 @@ public class SecurityConfig01 {
           }
 
           public List<Filter> getFilters() {
-            return Arrays.asList(mySecurityFilter01(), mySecurityFilter02(), mySecurityFilter03(),
-                mySecurityFilter04());
+            return Arrays.asList(mySecurityFilter01(), mySecurityFilter02(), mySecurityFilter03());
           }
         });
 
-    return new FilterChainProxy(list);
+    return new FilterChainProxy(securityFilterChains);
   }
 
   @Bean
@@ -58,10 +56,4 @@ public class SecurityConfig01 {
   public MySecurityFilter03 mySecurityFilter03() {
     return new MySecurityFilter03();
   }
-
-  @Bean
-  public MySecurityFilter04 mySecurityFilter04() {
-    return new MySecurityFilter04();
-  }
-
 }

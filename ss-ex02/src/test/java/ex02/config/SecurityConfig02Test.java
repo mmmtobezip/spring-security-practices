@@ -19,43 +19,44 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
+
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {WebConfig.class, SecurityConfig01.class})
+@ContextConfiguration(classes = {WebConfig.class, SecurityConfig02.class})
 @WebAppConfiguration
-public class SecurityConfig01Test {
+public class SecurityConfig02Test {
   private MockMvc mvc;
   private FilterChainProxy filterChainProxy;
 
   @BeforeEach
   public void setup(WebApplicationContext applicationContext) {
     filterChainProxy =
-        applicationContext.getBean("springSecurityFilterChain", FilterChainProxy.class); // SeucrityConfig01
-                                                                                         // 메서드 이름
+        applicationContext.getBean("springSecurityFilterChain", FilterChainProxy.class);
     mvc = MockMvcBuilders.webAppContextSetup(applicationContext)
         .addFilter(new DelegatingFilterProxy(filterChainProxy), "/*").build();
   }
 
   @Test
   public void testSecurityFilterChains() {
-    List<SecurityFilterChain> securityFilterChain = filterChainProxy.getFilterChains();
-    assertEquals(2, securityFilterChain.size());
+    List<SecurityFilterChain> securityFilterChains = filterChainProxy.getFilterChains();
+    assertEquals(2, securityFilterChains.size());
   }
 
   @Test
   public void testSecurityFilters() {
     SecurityFilterChain securityFilterChain = filterChainProxy.getFilterChains().get(1);
     List<Filter> filters = securityFilterChain.getFilters();
+
     assertEquals(3, filters.size());
   }
 
   @Test
-  public void testSecurityFilterChain01() throws Exception {
+  public void testSecurityFilterChain01() throws Throwable {
     mvc.perform(get("/assets/images/logo.png")).andExpect(status().isOk())
         .andExpect(cookie().doesNotExist("MySecurityFilter01"));
   }
 
   @Test
-  public void testSecurityFilterChain02() throws Exception {
+  public void testSecurityFilterChain02() throws Throwable {
     mvc.perform(get("/hello")).andExpect(status().isOk())
         .andExpect(cookie().value("MySecurityFilter01", "Works"))
         .andExpect(cookie().value("MySecurityFilter02", "Works"))
