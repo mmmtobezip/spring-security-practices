@@ -4,4 +4,10 @@
   <artifactId>spring-security-practices</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <modules>
+  	<module>ss-ex01</module>
+  	<module>ss-ex02</module>
+  	<module>ss-ex03</module>
+  	<module>ss-ex04</module>
+  </modules>
 </project>
