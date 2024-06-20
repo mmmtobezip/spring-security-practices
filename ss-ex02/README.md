@@ -10,7 +10,7 @@
 
 1. DelegatingFilterProxy로 부터 보안 처리를 위임받은 Spring Security의 Filter Bean
 2. 특정 요청(URL 또는 URL패턴)에 매핑된 SecurityFilterChain 들의 List로 구성
-3. 앞의 DeleteGatingFilterProxy로 부터의 모든 요청을 받은 후, 특정 요청과 매핑된 SecurityFilterChain를 작동시키는 보안 FilterChain의 프록시(Proxy)
+3. 앞의 DeletegatingFilterProxy로 부터의 모든 요청을 받은 후, 특정 요청과 매핑된 SecurityFilterChain를 작동시키는 보안 FilterChain의 프록시(Proxy)
 4. Spring Security 설정은 FilterChainProxy Bean 설정을 의미 
 
 
