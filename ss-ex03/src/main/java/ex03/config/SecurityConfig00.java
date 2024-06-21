@@ -55,9 +55,9 @@ public class SecurityConfig00 {
   @Bean
   public FilterChainProxy springSecurityFilterChain() {
     List<SecurityFilterChain> securityFilterChains =
-        Arrays.asList(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/favicon.ico")),
+        Arrays.asList(new DefaultSecurityFilterChain(new AntPathRequestMatcher("/favicon.ico")), //두번째 세번째 파라미터를 주지 않았으니 필터 체인이 걸리지 않음. 
             new DefaultSecurityFilterChain(new AntPathRequestMatcher("/assets/**")),
-            new DefaultSecurityFilterChain(new AntPathRequestMatcher("/**"),
+            new DefaultSecurityFilterChain(new AntPathRequestMatcher("/**"), //위에 두개 제외하곤 필터 체인 걸었음. 
                 securityContextPersistenceFilter(), logoutFilter(),
                 usernamePasswordProcessingFilter(), anonymousAuthenticationFilter(),
                 exceptionTranslationFilter(), filterSecurityInterceptor()));
